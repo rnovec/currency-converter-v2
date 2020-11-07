@@ -1,35 +1,35 @@
-import React, { useContext } from "react";
-import { StatusBar, FlatList, View, StyleSheet } from "react-native";
-import { useSafeArea } from "react-native-safe-area-context";
-import { Entypo } from "@expo/vector-icons";
+import React, { useContext } from 'react'
+import { StatusBar, FlatList, View, StyleSheet } from 'react-native'
+import { useSafeArea } from 'react-native-safe-area-context'
+import { Entypo } from '@expo/vector-icons'
 
-import currencies from "../data/currencies.json";
-import { RowItem, RowSeparator } from "../components/RowItem";
-import colors from "../constants/colors";
-import { ConversionContext } from "../util/ConversionContext";
+import currencies from '../constants/currencies.json'
+import { RowItem, RowSeparator } from '../components/RowItem'
+import colors from '../constants/colors'
+import { ConversionContext } from '../util/ConversionContext'
 
 const styles = StyleSheet.create({
   icon: {
     width: 30,
     height: 30,
     borderRadius: 20,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: colors.blue
   }
-});
+})
 
 export default ({ navigation, route = {} }) => {
-  const insets = useSafeArea();
+  const insets = useSafeArea()
   const {
     baseCurrency,
     quoteCurrency,
     setBaseCurrency,
     setQuoteCurrency
-  } = useContext(ConversionContext);
+  } = useContext(ConversionContext)
 
-  const params = route.params || {};
-  const { isBaseCurrency } = params;
+  const params = route.params || {}
+  const { isBaseCurrency } = params
 
   return (
     <View
@@ -38,16 +38,16 @@ export default ({ navigation, route = {} }) => {
         backgroundColor: colors.white
       }}
     >
-      <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
+      <StatusBar barStyle='dark-content' backgroundColor={colors.white} />
       <FlatList
         data={currencies}
         renderItem={({ item }) => {
-          let selected = false;
+          let selected = false
 
           if (isBaseCurrency && item === baseCurrency) {
-            selected = true;
+            selected = true
           } else if (!isBaseCurrency && item === quoteCurrency) {
-            selected = true;
+            selected = true
           }
 
           return (
@@ -55,21 +55,21 @@ export default ({ navigation, route = {} }) => {
               title={item}
               onPress={() => {
                 if (isBaseCurrency) {
-                  setBaseCurrency(item);
+                  setBaseCurrency(item)
                 } else {
-                  setQuoteCurrency(item);
+                  setQuoteCurrency(item)
                 }
-                navigation.pop();
+                navigation.pop()
               }}
               rightIcon={
                 selected && (
                   <View style={styles.icon}>
-                    <Entypo name="check" size={20} color={colors.white} />
+                    <Entypo name='check' size={20} color={colors.white} />
                   </View>
                 )
               }
             />
-          );
+          )
         }}
         keyExtractor={item => item}
         ItemSeparatorComponent={() => <RowSeparator />}
@@ -78,5 +78,5 @@ export default ({ navigation, route = {} }) => {
         )}
       />
     </View>
-  );
-};
+  )
+}
