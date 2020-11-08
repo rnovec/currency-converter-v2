@@ -1,6 +1,10 @@
+# Currency Converter v1.0.0
 
+| Home                         | Currency List                         | About                         |
+| ---------------------------- | ------------------------------------- | ----------------------------- |
+| ![](./assets/docs/home.jpeg) | ![](./assets/docs/currency-list.jpeg) | ![](./assets/docs/about.jpeg) |
 
-# React Native Basics: Build a Currency Converter
+## React Native Basics: Build a Currency Converter
 
 This is an example React Native project that implements a basics currency converter.
 
