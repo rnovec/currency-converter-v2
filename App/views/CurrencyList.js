@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { StatusBar, FlatList, View, StyleSheet } from 'react-native'
+import { StatusBar, FlatList, View, StyleSheet, Image } from 'react-native'
 import { useSafeArea } from 'react-native-safe-area-context'
 import { Entypo } from '@expo/vector-icons'
 
@@ -39,6 +39,7 @@ export default ({ navigation, route = {} }) => {
       }}
     >
       <StatusBar barStyle='dark-content' backgroundColor={colors.white} />
+
       <FlatList
         data={currencies}
         renderItem={({ item }) => {
@@ -51,24 +52,24 @@ export default ({ navigation, route = {} }) => {
           }
 
           return (
-            <RowItem
-              title={item}
-              onPress={() => {
-                if (isBaseCurrency) {
-                  setBaseCurrency(item)
-                } else {
-                  setQuoteCurrency(item)
+              <RowItem
+                title={item}
+                onPress={() => {
+                  if (isBaseCurrency) {
+                    setBaseCurrency(item)
+                  } else {
+                    setQuoteCurrency(item)
+                  }
+                  navigation.pop()
+                }}
+                rightIcon={
+                  selected && (
+                    <View style={styles.icon}>
+                      <Entypo name='check' size={20} color={colors.white} />
+                    </View>
+                  )
                 }
-                navigation.pop()
-              }}
-              rightIcon={
-                selected && (
-                  <View style={styles.icon}>
-                    <Entypo name='check' size={20} color={colors.white} />
-                  </View>
-                )
-              }
-            />
+              />
           )
         }}
         keyExtractor={item => item}

@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  View,
+  SafeAreaView,
   ScrollView,
   Linking,
   Alert,
@@ -18,7 +18,7 @@ const openLink = url =>
 
 export default () => {
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <StatusBar barStyle='dark-content' backgroundColor={colors.white} />
 
       <ScrollView>
@@ -26,7 +26,7 @@ export default () => {
           title='Foreign exchange rates API'
           onPress={() =>
             openLink(
-              'https://learn.handlebarlabs.com/p/react-native-basics-build-a-currency-converter'
+              'https://exchangeratesapi.io/'
             )
           }
           rightIcon={<Entypo name='export' size={20} color={colors.blue} />}
@@ -52,6 +52,6 @@ export default () => {
           rightIcon={<Entypo name='export' size={20} color={colors.blue} />}
         />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   )
 }

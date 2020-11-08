@@ -8,7 +8,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -30,7 +30,10 @@
       "translucent": false
     },
     "android": {
-      "package": "com.rnovec98.CurrencyConverter"
+      "package": "com.rnovec98.CurrencyConverter",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-7799243430459851~7821918617"
+      }
     }
   }
 }

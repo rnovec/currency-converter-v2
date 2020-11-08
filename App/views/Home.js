@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import {
   View,
   StyleSheet,
@@ -18,52 +18,10 @@ import colors from '../constants/colors'
 import { ConversionInput } from '../components/ConversionInput'
 import { Button } from '../components/Button'
 import { KeyboardSpacer } from '../components/KeyboardSpacer'
+import { AdMobBanner, setTestDeviceIDAsync } from 'expo-ads-admob'
 import { ConversionContext } from '../util/ConversionContext'
 
 const screen = Dimensions.get('window')
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.blue
-  },
-  content: {
-    paddingTop: 0
-  },
-  logoContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20
-  },
-  logoBackground: {
-    width: screen.width / 0.45,
-    height: screen.width * 0.45
-  },
-  logo: {
-    position: 'absolute',
-    width: screen.width * 0.25,
-    height: screen.width * 0.25
-  },
-  textHeader: {
-    color: colors.white,
-    fontWeight: 'bold',
-    fontSize: 30,
-    textAlign: 'center',
-    marginBottom: 20
-  },
-  text: {
-    fontSize: 14,
-    color: colors.white,
-    textAlign: 'center'
-  },
-  inputContainer: {
-    marginBottom: 10
-  },
-  header: {
-    alignItems: 'flex-end',
-    margin: 20
-  }
-})
 
 export default ({ navigation }) => {
   const {
@@ -76,8 +34,15 @@ export default ({ navigation }) => {
   } = useContext(ConversionContext)
   const [value, setValue] = useState('100')
   const [scrollEnabled, setScrollEnabled] = useState(false)
-
   const conversionRate = rates[quoteCurrency]
+
+  useEffect(() => {
+    // Set global test device ID
+    async function setDevice () {
+      await setTestDeviceIDAsync('EMULATOR')
+    }
+    setDevice()
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -136,7 +101,9 @@ export default ({ navigation }) => {
                 />
               </View>
               <Text style={styles.text}>
-                {`1 ${baseCurrency} = ${conversionRate} ${quoteCurrency} as of ${date &&
+                {`1 ${baseCurrency} = ${parseFloat(conversionRate).toFixed(
+                  2
+                )} ${quoteCurrency} at ${date &&
                   format(new Date(date), 'MMM do, yyyy')}`}
               </Text>
               <Button
@@ -147,7 +114,60 @@ export default ({ navigation }) => {
           )}
           <KeyboardSpacer onToggle={visible => setScrollEnabled(visible)} />
         </View>
+        <AdMobBanner
+          style={styles.bottomBanner}
+          bannerSize='fullBanner'
+          adUnitID='ca-app-pub-7799243430459851/2265844763'
+        />
       </ScrollView>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.blue
+  },
+  content: {
+    paddingTop: 0
+  },
+  logoContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20
+  },
+  logoBackground: {
+    width: screen.width / 0.45,
+    height: screen.width * 0.45
+  },
+  logo: {
+    position: 'absolute',
+    width: screen.width * 0.25,
+    height: screen.width * 0.25
+  },
+  textHeader: {
+    color: colors.white,
+    fontWeight: 'bold',
+    fontSize: 30,
+    textAlign: 'center',
+    marginBottom: 20
+  },
+  text: {
+    fontSize: 14,
+    color: colors.white,
+    textAlign: 'center'
+  },
+  inputContainer: {
+    marginBottom: 10
+  },
+  header: {
+    alignItems: 'flex-end',
+    margin: 20
+  },
+  bottomBanner: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'red'
+  }
+})
