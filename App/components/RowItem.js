@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export const RowItem = ({ title, onPress, rightIcon }) => (
+export const RowItem = ({ title, onPress, rightIcon, hasImage }) => (
   <TouchableOpacity onPress={onPress} style={styles.row}>
     <View
       style={{
@@ -33,15 +33,20 @@ export const RowItem = ({ title, onPress, rightIcon }) => (
         alignItems: 'center'
       }}
     >
-      <Image
-        style={{
-          width: 25,
-          height: 15
-        }}
-        source={{
-          uri: `https://github.com/transferwise/currency-flags/blob/master/src/flags/${title.toLowerCase()}.png?raw=true`
-        }}
-      />
+      {hasImage ? (
+        <Image
+          style={{
+            width: 25,
+            height: 15
+          }}
+          source={{
+            uri: `https://github.com/transferwise/currency-flags/blob/master/src/flags/${title.toLowerCase()}.png?raw=true`
+          }}
+        />
+      ) : (
+        <></>
+      )}
+
       <Text style={styles.title}>{title}</Text>
     </View>
     {rightIcon}

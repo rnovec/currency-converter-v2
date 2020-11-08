@@ -1,15 +1,21 @@
 import React from 'react'
 import {
+  View,
   SafeAreaView,
   ScrollView,
   Linking,
   Alert,
+  Text,
+  StyleSheet,
   StatusBar
 } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
+import { map } from 'lodash'
 
 import colors from '../constants/colors'
 import { RowItem, RowSeparator } from '../components/RowItem'
+import links from '../constants/links'
+import { BannerAd } from '../components/Ads'
 
 const openLink = url =>
   Linking.openURL(url).catch(() =>
@@ -22,36 +28,34 @@ export default () => {
       <StatusBar barStyle='dark-content' backgroundColor={colors.white} />
 
       <ScrollView>
-        <RowItem
-          title='Foreign exchange rates API'
-          onPress={() =>
-            openLink(
-              'https://exchangeratesapi.io/'
-            )
-          }
-          rightIcon={<Entypo name='export' size={20} color={colors.blue} />}
-        />
-
-        <RowSeparator />
-
-        <RowItem
-          title='React Native Basics'
-          onPress={() =>
-            openLink(
-              'https://learn.handlebarlabs.com/p/react-native-basics-build-a-currency-converter'
-            )
-          }
-          rightIcon={<Entypo name='export' size={20} color={colors.blue} />}
-        />
-
-        <RowSeparator />
-
-        <RowItem
-          title='React Native by Example'
-          onPress={() => openLink('https://reactnativebyexample.com')}
-          rightIcon={<Entypo name='export' size={20} color={colors.blue} />}
-        />
+        {map(links, (link, index) => (
+          <View key={index}>
+            <RowItem
+              title={link.title}
+              onPress={() => openLink(link.url)}
+              rightIcon={
+                <Entypo
+                  name={link.icon || 'export'}
+                  size={20}
+                  color={colors.blue}
+                />
+              }
+            />
+            <RowSeparator />
+          </View>
+        ))}
       </ScrollView>
+      <Text style={styles.text}>Version: v1.0.0</Text>
+      <BannerAd />
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: colors.textLight,
+    textAlign: 'center'
+  }
+})

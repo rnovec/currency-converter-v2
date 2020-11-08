@@ -14,12 +14,12 @@ import { format } from 'date-fns'
 import { Entypo } from '@expo/vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import colors from '../constants/colors'
 import { ConversionInput } from '../components/ConversionInput'
 import { Button } from '../components/Button'
 import { KeyboardSpacer } from '../components/KeyboardSpacer'
 import { BannerAd } from '../components/Ads'
 import { ConversionContext } from '../util/ConversionContext'
+import colors from '../constants/colors'
 
 const screen = Dimensions.get('window')
 
@@ -101,8 +101,8 @@ export default ({ navigation }) => {
               <Button
                 text='Reverse Currencies'
                 onPress={() => swapCurrencies()}
-                />
-                <BannerAd/>
+              />
+              <BannerAd />
             </>
           )}
           <KeyboardSpacer onToggle={visible => setScrollEnabled(visible)} />

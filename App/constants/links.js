@@ -1,14 +1,15 @@
 export default [
     {
-        text: 'Foreign exchange rates API',
-        link: 'https://learn.handlebarlabs.com/p/react-native-basics-build-a-currency-converter'
+        title: 'Foreign exchange rates API',
+        url: 'https://exchangeratesapi.io/'
     },
     {
-        text: 'Foreign exchange rates API',
-        link: 'https://learn.handlebarlabs.com/p/react-native-basics-build-a-currency-converter'
+        title: 'React Native by Example',
+        url: 'https://www.reactnativebyexample.com/'
     },
     {
-        text: 'Foreign exchange rates API',
-        link: 'https://learn.handlebarlabs.com/p/react-native-basics-build-a-currency-converter'
+        title: 'Project Source Code',
+        icon: 'github',
+        url: 'https://github.com/rnovec/currency-converter-v2'
     }
 ]
