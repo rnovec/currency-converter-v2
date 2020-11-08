@@ -1,27 +1,33 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { AdMobBanner, AdMobInterstitial, AdMobRewarded } from 'expo-ads-admob'
+import React, { useEffect } from 'react'
+import { StyleSheet } from 'react-native'
+import { AdMobBanner, setTestDeviceIDAsync } from 'expo-ads-admob'
 
-class Ads extends React.Component {
-  bannerError () {
+export const BannerAd = () => {
+  function bannerError () {
     console.log('An error')
     return
   }
+  useEffect(() => {
+    ;(async () => {
+      // Set global test device ID
+      await setTestDeviceIDAsync('EMULATOR')
+    })()
+  }, [])
 
-  render () {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <AdMobBanner
-          style={styles.bottomBanner}
-          bannerSize='fullBanner'
-          adUnitID='ca-app-pub-7799243430459851/2265844763'
-          testDeviceID='EMULATOR'
-        />
-      </View>
-    )
-  }
+  return (
+    <AdMobBanner
+      style={styles.bottomBanner}
+      bannerSize='fullBanner'
+      adUnitID='ca-app-pub-7799243430459851/2265844763'
+      onDidFailToReceiveAdWithError={bannerError}
+    />
+  )
 }
 
-
-export default Ads
+const styles = StyleSheet.create({
+  bottomBanner: {
+    flex: 1,
+    justifyContent: 'flex-end'
+    // backgroundColor: 'red' // just for debug
+  }
+})

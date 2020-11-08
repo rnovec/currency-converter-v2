@@ -4,9 +4,9 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { Entypo } from '@expo/vector-icons'
 
-import Home from '../views/Home'
-import About from '../views/About'
-import CurrencyList from '../views/CurrencyList'
+import Home from '../screens/Home'
+import About from '../screens/About'
+import CurrencyList from '../screens/CurrencyList'
 import colors from '../constants/colors'
 
 const MainStack = createStackNavigator()

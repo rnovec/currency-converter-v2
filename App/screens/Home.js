@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import {
   View,
   StyleSheet,
@@ -18,7 +18,7 @@ import colors from '../constants/colors'
 import { ConversionInput } from '../components/ConversionInput'
 import { Button } from '../components/Button'
 import { KeyboardSpacer } from '../components/KeyboardSpacer'
-import { AdMobBanner, setTestDeviceIDAsync } from 'expo-ads-admob'
+import { BannerAd } from '../components/Ads'
 import { ConversionContext } from '../util/ConversionContext'
 
 const screen = Dimensions.get('window')
@@ -35,14 +35,6 @@ export default ({ navigation }) => {
   const [value, setValue] = useState('100')
   const [scrollEnabled, setScrollEnabled] = useState(false)
   const conversionRate = rates[quoteCurrency]
-
-  useEffect(() => {
-    // Set global test device ID
-    async function setDevice () {
-      await setTestDeviceIDAsync('EMULATOR')
-    }
-    setDevice()
-  }, [])
 
   return (
     <View style={styles.container}>
@@ -109,16 +101,12 @@ export default ({ navigation }) => {
               <Button
                 text='Reverse Currencies'
                 onPress={() => swapCurrencies()}
-              />
+                />
+                <BannerAd/>
             </>
           )}
           <KeyboardSpacer onToggle={visible => setScrollEnabled(visible)} />
         </View>
-        <AdMobBanner
-          style={styles.bottomBanner}
-          bannerSize='fullBanner'
-          adUnitID='ca-app-pub-7799243430459851/2265844763'
-        />
       </ScrollView>
     </View>
   )
@@ -164,10 +152,5 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'flex-end',
     margin: 20
-  },
-  bottomBanner: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    backgroundColor: 'red'
   }
 })
